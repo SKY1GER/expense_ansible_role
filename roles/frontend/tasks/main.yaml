@@ -1,0 +1,47 @@
+- name: Install Nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: latest
+- name: start and enable Nginx 
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
+- name: Recursively remove directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Recursively remove directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html/
+    state: directory
+
+# - name: download backend code
+#   ansible.builtin.get_url:
+#    url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+#    dest:  /tmp/frontend.zip
+
+# - name: Extract backend.zip  into /app
+#   ansible.builtin.unarchive:
+#     src: /tmp/frontend.zip
+#     dest: /usr/share/nginx/html
+#     remote_src: yes
+
+- name: download and extract
+  ansible.builtin.unarchive:
+    src: https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+#if there is a change in configuration then only you need to restart
+- name: Copy backend service
+  ansible.builtin.template:
+    src: expense.conf.j2
+    dest: /etc/nginx/default.d/expense.conf
+  notify:
+  - to restart the nginx service
+# - name: to restart the nginx service
+#   ansible.builtin.service:
+#     name: nginx
+#     state: restarted

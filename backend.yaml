@@ -1,4 +1,4 @@
-- name: to configure db using roles
+- name: to configure backend using roles
   hosts: backend
   become: yes
   roles:
