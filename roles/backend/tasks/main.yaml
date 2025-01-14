@@ -15,22 +15,25 @@
 - name: Add the user expense
   ansible.builtin.user:
     name: expense
+- name: to import role
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-pre-req
+# - name: to create app directory
+#   ansible.builtin.file:
+#     path: /app
+#     state: directory
 
-- name: to create app directory
-  ansible.builtin.file:
-    path: /app
-    state: directory
+# - name: download backend code
+#   ansible.builtin.get_url:
+#     url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+#     dest:  /tmp/backend.zip
 
-- name: download backend code
-  ansible.builtin.get_url:
-    url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
-    dest:  /tmp/backend.zip
-
-- name: Extract backend.zip  into /app
-  ansible.builtin.unarchive:
-    src: /tmp/backend.zip
-    dest: /app
-    remote_src: yes
+# - name: Extract backend.zip  into /app
+#   ansible.builtin.unarchive:
+#     src: /tmp/backend.zip
+#     dest: /app
+#     remote_src: yes
 
 - name: install npm dependencies
   ansible.builtin.command: npm install
