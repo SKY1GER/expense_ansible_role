@@ -1,0 +1,6 @@
+- name: to configure db using roles
+  hosts: db
+  become: yes
+  roles:
+  - db
+  
