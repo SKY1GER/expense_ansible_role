@@ -1,0 +1,5 @@
+- name: to configure db using roles
+  hosts: backend
+  become: yes
+  roles:
+  - backend
