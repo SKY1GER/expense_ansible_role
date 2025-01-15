@@ -1,6 +1,8 @@
 - name: to configure db using roles
   hosts: db
   become: yes
+  vars_files:
+  - credentials.yaml
   roles:
   - db
   
