@@ -2,5 +2,5 @@ DB_HOST: db.daws79s.online
 login_user: root
 login_host: db.daws79s.online
 mysql_root_password: ExpenseApp@1
-component: backendend
+component: backend
 app_path: /app
